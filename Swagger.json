@@ -1,0 +1,1197 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Магазин курсов",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Dev server"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "get": {
+        "summary": "Метод получения всех курсов",
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "getAllCourse",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ со всеми курсами",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Courses"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course": {
+      "post": {
+        "summary": "Метод создания курса",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "createCourse",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с созданным курсом",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseFullInfo"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/course/{course_id}": {
+      "put": {
+        "summary": "Метод обновления важной информации о курсе",
+        "tags": [
+          "Courses"
+        ],
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор курса",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "operationId": "updateCourse",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCourse"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с созданным курсом",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseFullInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/{course_id}": {
+      "get": {
+        "summary": "Метод получения курса по идентификатору",
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "getCourseById",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор курса",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с одним курсом",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseFullInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Метод удаления курса",
+        "tags": [
+          "Courses"
+        ],
+        "operationId": "DeleteByCourse",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор курса",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешное удаление",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registration": {
+      "post": {
+        "summary": "Регистрация пользователя",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "registration",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegistration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ о регистрации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Регистрация прошла успешно"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ошибка авторизации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Пользователь уже существует, конфликт",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error409"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Метод авторизации пользователя",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              },
+              "example": {
+                "email": "serega@yandex.ru",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ об авторизации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLogin"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Ошибка в авторизации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/fav/{course_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор курса",
+            "schema": {
+              "type": "string"
+            },
+            "example": 7
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "summary": "Метод добавления пользователю курса в избранное",
+        "tags": [
+          "User"
+        ],
+        "operationId": "addFav",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ о добавлении курса",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Курс удален из избранного"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор курса",
+            "schema": {
+              "type": "string"
+            },
+            "example": 7
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "summary": "Метод удаления у пользователя курса из избранного",
+        "tags": [
+          "User"
+        ],
+        "operationId": "delFav",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ об авторизации",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "Курс удален из избранного"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{user_id}": {
+      "get": {
+        "summary": "Метод получения информации о пользователе по идентификатору",
+        "tags": [
+          "User"
+        ],
+        "operationId": "getUserByID",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "description": "Идентификатор пользователя",
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "example": "Brayer token_test_sdfdsfsd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с одним пользователем",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некоректный запрос",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error400"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Не найден идентификатор",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Все нестандартное",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Метод получения информации о текущем пользователе системы",
+        "tags": [
+          "User"
+        ],
+        "operationId": "getCurrentUser",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ с текущим пользователем",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Пользователь не авторизован",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error401"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Операции чтения в настоящее время отключены",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Course1": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "course_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "JavaScript"
+          },
+          "short_info": {
+            "type": "string",
+            "example": "Краткое описание курса JavaScript",
+            "description": "Краткое описание курса"
+          },
+          "full_info": {
+            "type": "string",
+            "example": "Полное описание курса JavaScript",
+            "description": "Полное описание курса"
+          }
+        }
+      },
+      "getAllCourses": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "JavaScript"
+          },
+          "short_info": {
+            "type": "string",
+            "example": "Краткое описание курса JavaScript",
+            "description": "Краткое описание курса"
+          },
+          "full_info": {
+            "type": "string",
+            "example": "Полное описание курса JavaScript",
+            "description": "Полное описание курса"
+          }
+        }
+      },
+      "Courses": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/getAllCourses"
+        }
+      },
+      "CourseFullInfo": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "course_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "C++"
+          },
+          "short_info": {
+            "type": "string",
+            "example": "Краткое описание курса C++",
+            "description": "Краткое описание курса C++"
+          },
+          "full_info": {
+            "type": "string",
+            "example": "Полное описание курса C++",
+            "description": "Полное описание курса C++"
+          }
+        }
+      },
+      "CreateCourse": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "C++"
+          },
+          "short_info": {
+            "type": "string",
+            "example": "Краткое описание курса C++",
+            "description": "Краткое описание курса C++"
+          },
+          "full_info": {
+            "type": "string",
+            "example": "Полное описание курса C++",
+            "description": "Полное описание курса C++"
+          }
+        }
+      },
+      "UpdateCourse": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "short_info": {
+            "type": "string",
+            "example": "Краткое описание курса C++",
+            "description": "Краткое описание курса C++"
+          },
+          "full_info": {
+            "type": "string",
+            "example": "Полное описание курса C++",
+            "description": "Полное описание курса C++"
+          }
+        }
+      },
+      "Error400": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Некорректный запрос"
+          }
+        }
+      },
+      "Error401": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Нет прав доступа"
+          }
+        }
+      },
+      "Error404": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Не найден такой ID"
+          }
+        }
+      },
+      "Error403": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "example": "Операции чтения отключены"
+          }
+        }
+      },
+      "Error409": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 409
+          },
+          "message": {
+            "type": "string",
+            "example": "Пользователь уже существует"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "name",
+          "code"
+        ],
+        "properties": {
+          "name": {
+            "type": "integer",
+            "example": 500
+          },
+          "message": {
+            "type": "string",
+            "example": "ошибка сервера"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "username": {
+            "type": "string",
+            "example": "Serega"
+          },
+          "surname": {
+            "type": "string",
+            "example": "Ivanov",
+            "description": "Фамилия"
+          },
+          "email": {
+            "type": "string",
+            "example": "123@yandex.ru",
+            "description": "Электронная почта"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwerty123"
+          },
+          "role": {
+            "type": "integer",
+            "example": "admin"
+          },
+          "like_courses": {
+            "type": "string",
+            "example": [
+              2,
+              6,
+              8
+            ],
+            "description": "Тут находятся id курсов, которые выбрал пользователь"
+          }
+        }
+      },
+      "UserRegistration": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "Serega"
+          },
+          "surname": {
+            "type": "string",
+            "example": "Ivanov",
+            "description": "Фамилия"
+          },
+          "email": {
+            "type": "string",
+            "example": "123@yandex.ru",
+            "description": "Электронная почта"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "ewigfigsfigfsidfgsdiugfsiufgsiuf"
+          }
+        }
+      }
+    }
+  }
+}

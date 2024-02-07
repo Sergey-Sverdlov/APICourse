@@ -1,0 +1,30 @@
+{
+  "name": "lab_01_web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootprint-swagger": "^1.0.1",
+    "express": "^4.18.2",
+    "express-formidable": "^1.2.0",
+    "express-validator": "^6.14.3",
+    "ip": "^2.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "model-converter-ts": "^2.0.0",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
